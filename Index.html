@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futuristic Chat</title>
+    <link rel="stylesheet" href="styles.css"> <!-- External CSS -->
+</head>
+<body>
+  <style>
+    /* General Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(45deg, #1a1a1d, #0f0f10);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    flex-direction: column;
+}
+
+h3 {
+    color: #00bcd4;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+/* Form Styles */
+input {
+    width: 300px;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 25px;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 188, 212, 0.5);
+    transition: background-color 0.3s ease;
+}
+
+input:focus {
+    background-color: rgba(0, 188, 212, 0.3);
+}
+
+/* Button Styles */
+button {
+    padding: 12px;
+    width: 100%;
+    background: #00bcd4;
+    border: none;
+    border-radius: 25px;
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+button:hover {
+    background: #e91e63;
+    transform: scale(1.05);
+}
+
+/* Login/Signup Section */
+#login-form, #signup-form {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(0, 188, 212, 0.7);
+    margin-top: 20px;
+    text-align: center;
+}
+
+#signup-form {
+    margin-top: 50px;
+}
+
+/* User Profile Section */
+#user-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+#user-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #00bcd4;
+}
+
+#user-name {
+    color: #00bcd4;
+    font-size: 1.2rem;
+}
+
+#logout-btn {
+    padding: 10px 20px;
+    background-color: #e91e63;
+    border-radius: 25px;
+    color: white;
+    cursor: pointer;
+    display: none;
+}
+
+#logout-btn:hover {
+    background-color: #00bcd4;
+}
+
+/* Search Section */
+#search-section {
+    margin-top: 30px;
+    text-align: center;
+}
+
+#search-username {
+    padding: 10px;
+    width: 200px;
+    margin: 10px;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+}
+
+#search-btn {
+    padding: 10px;
+    background: #00bcd4;
+    border-radius: 25px;
+    color: white;
+    cursor: pointer;
+}
+
+#search-btn:hover {
+    background: #e91e63;
+}
+
+/* Chat Box */
+#chat-box {
+    width: 90%;
+    max-width: 500px;
+    height: 400px;
+    overflow-y: scroll;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(0, 188, 212, 0.8);
+    margin: auto;
+    margin-top: 20px;
+}
+
+.message {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.user-pic {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.my-msg {
+    background: #00bcd4;
+    color: black;
+    border-radius: 10px;
+    padding: 8px;
+    text-align: right;
+    max-width: 70%;
+}
+
+.other-msg {
+    background: #e91e63;
+    color: white;
+    border-radius: 10px;
+    padding: 8px;
+    text-align: left;
+    max-width: 70%;
+}
+
+/* Typing Indicator */
+#typing-indicator {
+    color: #00bcd4;
+    text-align: center;
+    font-size: 1.1rem;
+    margin-top: 10px;
+}
+  </style>
+
+    <div class="container">
+        <h2>🚀 Futuristic Chat</h2>
+        
+        <div id="user-info">
+            <img id="user-pic" src="default-user.png" alt="User">
+            <span id="user-name">Not Logged In</span>
+            <button id="login-btn">Login with Google</button>
+            <button id="logout-btn" style="display: none;">Logout</button>
+        </div>
+
+        <div id="chat-box"></div>
+
+        <p id="typing-indicator" style="display: none;">Someone is typing...</p>
+
+        <div class="input-container">
+            <input type="text" id="message" placeholder="Type your message...">
+            <button id="send-btn">Send</button>
+        </div>
+    </div>
+    <div id="login-form">
+  <h3>Login</h3>
+  <input type="email" id="email" placeholder="Email" />
+  <input type="password" id="password" placeholder="Password" />
+  <button id="login-btn">Login</button>
+</div>
+
+<div id="signup-form">
+  <h3>Sign Up</h3>
+  <input type="email" id="email" placeholder="Email" />
+  <input type="password" id="password" placeholder="Password" />
+  <input type="text" id="username" placeholder="Username" />
+  <button id="signup-btn">Sign Up</button>
+</div>
+  <script>
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc, collection, query, where, get } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+// Firebase config (your own config)
+const firebaseConfig = {
+  apiKey: "AIzaSyBX5SoeUphB0vWq-sUnCO-tbSZq5crmwKY",
+  authDomain: "chatting-app-60576.firebaseapp.com",
+  databaseURL: "https://chatting-app-60576.firebaseio.com",
+  projectId: "chatting-app-60576",
+  storageBucket:"chatting-app-60576.firebasestorage.app",
+  messagingSenderId: "599623633340",
+  appId: "1:599623633340:web:889751fa01ddc8149983b9"
+};
+
+// Initialize Firebase
+const auth = getAuth();
+const db = getFirestore();
+
+// Sign up and set username
+document.getElementById("signup-btn").addEventListener("click", async () => {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  const username = document.getElementById("username").value;
+
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+    
+    // Update user profile with username
+    await updateProfile(user, {
+      displayName: username
+    });
+    
+    // Save user data to Firestore
+    await setDoc(doc(db, "users", user.uid), {
+      username: username,
+      email: user.email,
+      profilePicture: user.photoURL || "default-profile-pic.jpg",
+      lastSeen: new Date(),
+      onlineStatus: true
+    });
+    
+    alert("Sign up successful!");
+    // Redirect to the chat page (replace with your page URL)
+    window.location.href = "chat.html"; 
+
+  } catch (error) {
+    alert(error.message);
+  }
+});
+
+// Login with username
+document.getElementById("login-btn").addEventListener("click", async () => {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+    
+    // Check if user exists in Firestore
+    const userRef = doc(db, "users", user.uid);
+    const userDoc = await getDoc(userRef);
+    
+    if (userDoc.exists()) {
+      // Redirect to chat page if user found
+      window.location.href = "chat.html"; 
+    } else {
+      alert("User profile does not exist.");
+    }
+    
+  } catch (error) {
+    alert(error.message);
+  }
+});
+
+// Check if user is logged in and show username
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    const username = user.displayName;
+    document.getElementById("user-name").textContent = `Welcome, ${username}`;
+  } else {
+    document.getElementById("user-name").textContent = "Not logged in";
+  }
+});
+  // Search users by username
+document.getElementById("search-btn").addEventListener("click", async () => {
+  const usernameToSearch = document.getElementById("search-username").value;
+
+  const q = query(collection(db, "users"), where("username", "==", usernameToSearch));
+  const querySnapshot = await get(q);
+
+  if (querySnapshot.empty) {
+    alert("User not found.");
+  } else {
+    querySnapshot.forEach(doc => {
+      const userData = doc.data();
+      alert(`User found: ${userData.username}`);
+      // Optionally, show user profile and allow the user to start a chat
+    });
+  }
+});
+  // Search users by username
+document.getElementById("search-btn").addEventListener("click", async () => {
+  const usernameToSearch = document.getElementById("search-username").value;
+
+  const q = query(collection(db, "users"), where("username", "==", usernameToSearch));
+  const querySnapshot = await get(q);
+
+  if (querySnapshot.empty) {
+    alert("User not found.");
+  } else {
+    querySnapshot.forEach(doc => {
+      const userData = doc.data();
+      alert(`User found: ${userData.username}`);
+      // Optionally, show user profile and allow the user to start a chat
+    });
+  }
+});
+</script>
+</body>
+    </html>
